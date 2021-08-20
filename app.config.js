@@ -6,7 +6,7 @@ export default {
     slug: "BuffetApp",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./buffet-src/assets/icon.png",
     splash: {
       image: "./buffet-src/assets/splash.png",
       resizeMode: "contain",
