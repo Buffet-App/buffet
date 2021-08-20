@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "BuffetApp",
+    "slug": "BuffetApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./buffet-src/assets/icon.png",
+    "splash": {
+      "image": "./buffet-src/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./buffet-src/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./buffet-src/assets/favicon.png"
+    }
+  }
+}
