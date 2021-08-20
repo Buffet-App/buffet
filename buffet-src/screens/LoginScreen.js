@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import {StyleSheet, Text, View, Button, TextInput,
     TouchableOpacity, Image, Keyboard, TouchableWithoutFeedback} from "react-native";
 import {Form, Formik} from "formik";
+import {globalStyles} from "../config/globalStyles";
+import colors from "../config/colors";
 
 export default function LoginScreen() {
     return (
@@ -50,8 +52,11 @@ export default function LoginScreen() {
                                 <Text style={styles.trouble}>Having trouble logging in?</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.loginButton} onPress={formikProps.handleSubmit}>
-                                <Text>LOGIN</Text>
+                            <TouchableOpacity
+                                style={[globalStyles.loginButton, {marginTop: 40, backgroundColor: colors.secondary}]}
+                                onPress={formikProps.handleSubmit}
+                            >
+                                <Text style={[styles.text, {color: colors.white}]}>Log In</Text>
                             </TouchableOpacity>
 
                             {/*<TouchableOpacity style={styles.signupButton}>*/}
@@ -70,19 +75,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: "lightgray",
+        backgroundColor: colors.primary,
         alignItems: "center",
         justifyContent: "center",
     },
     formContainer: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: "lightgray",
+        backgroundColor: colors.primary,
         alignItems: "center",
         justifyContent: "center",
     },
     inputView: {
-        backgroundColor: "peachpuff",
+        backgroundColor: colors.white,
         borderRadius: 30,
         width: 250,
         height: 45,
@@ -94,15 +99,6 @@ const styles = StyleSheet.create({
         padding: 10,
         marginLeft: 20,
     },
-    loginButton: {
-        width: 300,
-        borderRadius: 30,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 40,
-        backgroundColor: "darkorange",
-    },
     signupButton: {
         width: 300,
         borderRadius: 30,
@@ -110,11 +106,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 20,
-        backgroundColor: "darkorange",
+        backgroundColor: colors.primary,
     },
     image__logo: {
         width: 200,
         height: 200,
         resizeMode: "contain",
     },
+    text: {
+        fontWeight: 'bold',
+        fontSize: 24,
+        textAlign: 'center',
+    },
+    trouble: {
+        color: colors.text,
+    }
 })
