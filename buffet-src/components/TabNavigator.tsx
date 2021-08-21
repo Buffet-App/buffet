@@ -9,7 +9,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const TabNavigator: React.FunctionComponent = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="HomeScreen">

@@ -9,6 +9,7 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
+  GestureResponderEvent,
 } from "react-native";
 import { Form, Formik } from "formik";
 import { globalStyles } from "../config/globalStyles";
@@ -26,7 +27,6 @@ export default function LoginScreen() {
           }}
           onSubmit={(values) => {
             console.log(values);
-            this.handleLogin();
           }}
         >
           {(formikProps) => (
@@ -70,7 +70,7 @@ export default function LoginScreen() {
                   globalStyles.loginButton,
                   { marginTop: 40, backgroundColor: colors.secondary },
                 ]}
-                onPress={formikProps.handleSubmit}
+                onPress={formikProps.handleSubmit as any}
               >
                 <Text style={[styles.text, { color: colors.white }]}>
                   Log In

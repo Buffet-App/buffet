@@ -12,10 +12,6 @@ import TabNavigator from "./buffet-src/components/TabNavigator";
 const Stack = createNativeStackNavigator();
 let loggedIn = false;
 
-const handleLogin = () => {
-  loggedIn = true;
-};
-
 export default function App() {
   if (loggedIn === false) {
     return (
@@ -26,11 +22,7 @@ export default function App() {
         >
           <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
           <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-            handleLogin={handleLogin}
-          />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
