@@ -13,9 +13,8 @@ import {
 import { Form, Formik } from "formik";
 import { globalStyles } from "../config/globalStyles";
 import colors from "../config/colors";
-import TabNavigator from "../components/TabNavigator";
 
-export default function LoginScreen() {
+export default function SignUpScreen() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -26,7 +25,6 @@ export default function LoginScreen() {
           }}
           onSubmit={(values) => {
             console.log(values);
-            this.handleLogin();
           }}
         >
           {(formikProps) => (
@@ -65,21 +63,9 @@ export default function LoginScreen() {
                 <Text style={styles.trouble}>Having trouble logging in?</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={[
-                  globalStyles.loginButton,
-                  { marginTop: 40, backgroundColor: colors.secondary },
-                ]}
-                onPress={formikProps.handleSubmit}
-              >
-                <Text style={[styles.text, { color: colors.white }]}>
-                  Log In
-                </Text>
+              <TouchableOpacity style={styles.signupButton}>
+                <Text>SIGN UP</Text>
               </TouchableOpacity>
-
-              {/*<TouchableOpacity style={styles.signupButton}>*/}
-              {/*    <Text>SIGN UP</Text>*/}
-              {/*</TouchableOpacity>*/}
             </View>
           )}
         </Formik>
@@ -123,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
   },
   image__logo: {
     width: 200,

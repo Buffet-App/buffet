@@ -25,7 +25,7 @@ export default function LoadingScreen({ navigation }) {
           <TouchableOpacity
             style={styles.logoText}
             onPress={() => {
-              console.log("Customer sign up pressed");
+              navigation.navigate("SignUpScreen");
             }}
           >
             <Image
@@ -37,7 +37,7 @@ export default function LoadingScreen({ navigation }) {
           <TouchableOpacity
             style={styles.logoText}
             onPress={() => {
-              console.log("Restaurant sign up pressed");
+              navigation.navigate("SignUpScreen");
             }}
           >
             <Image

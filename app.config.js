@@ -8,9 +8,9 @@ export default {
     orientation: "portrait",
     icon: "./buffet-src/assets/icon.png",
     splash: {
-      image: "./buffet-src/assets/splash.png",
+      image: "./buffet-src/assets/buffet-logo-vertical.png",
       resizeMode: "contain",
-      backgroundColor: "#ffffff",
+      backgroundColor: "#FF8C20",
     },
     updates: {
       fallbackToCacheTimeout: 0,
