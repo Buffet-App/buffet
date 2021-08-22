@@ -3,7 +3,7 @@ import colors from "../config/colors";
 import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { globalStyles } from "../config/globalStyles";
 
-export default function LoadingScreen({ navigation }) {
+export default function LandingScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.topView}>

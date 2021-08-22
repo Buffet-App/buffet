@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   TouchableOpacity,
   Image,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Form, Formik } from "formik";
-import { globalStyles } from "../config/globalStyles";
+import { Formik } from "formik";
+
+import Firebase from "../../config/firebase";
 import colors from "../config/colors";
+
+const auth = Firebase.auth();
 
 export default function SignUpScreen() {
   return (
@@ -23,8 +25,18 @@ export default function SignUpScreen() {
             email: "",
             password: "",
           }}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={async (values) => {
+            try {
+              console.log("button pressed");
+              if (values.email !== "" && values.password !== "") {
+                await auth.createUserWithEmailAndPassword(
+                  values.email,
+                  values.password
+                );
+              }
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           {(formikProps) => (
@@ -63,7 +75,10 @@ export default function SignUpScreen() {
                 <Text style={styles.trouble}>Having trouble logging in?</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.signupButton}>
+              <TouchableOpacity
+                style={styles.signupButton}
+                onPress={formikProps.handleSubmit as any}
+              >
                 <Text>SIGN UP</Text>
               </TouchableOpacity>
             </View>

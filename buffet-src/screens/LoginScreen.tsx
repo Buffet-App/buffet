@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   TouchableOpacity,
   Image,
   Keyboard,
   TouchableWithoutFeedback,
-  GestureResponderEvent,
 } from "react-native";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import { globalStyles } from "../config/globalStyles";
+
+import Firebase from "../../config/firebase";
 import colors from "../config/colors";
-import TabNavigator from "../components/TabNavigator";
+
+const auth = Firebase.auth();
 
 export default function LoginScreen() {
   return (
@@ -25,8 +26,17 @@ export default function LoginScreen() {
             email: "",
             password: "",
           }}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={async (values) => {
+            try {
+              if (values.email !== "" && values.password !== "") {
+                await auth.signInWithEmailAndPassword(
+                  values.email,
+                  values.password
+                );
+              }
+            } catch (error) {
+              console.log(error.message);
+            }
           }}
         >
           {(formikProps) => (

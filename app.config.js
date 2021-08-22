@@ -6,7 +6,7 @@ export default {
     slug: "BuffetApp",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./buffet-src/assets/icon.png",
+    icon: "./buffet-src/assets/buffet-logo-vertical.png",
     splash: {
       image: "./buffet-src/assets/buffet-logo-vertical.png",
       resizeMode: "contain",
@@ -21,7 +21,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./buffet-src/assets/adaptive-icon.png",
+        foregroundImage: "./buffet-src/assets/buffet-logo-vertical.png",
         backgroundColor: "#FFFFFF",
       },
     },
