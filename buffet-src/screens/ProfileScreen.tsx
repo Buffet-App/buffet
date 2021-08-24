@@ -1,5 +1,15 @@
 import React from "react";
+<<<<<<< HEAD
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+=======
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+>>>>>>> added all bottom tab buttons + mapview + qr scanner + home page headers
 
 import Firebase from "../../config/firebase";
 import colors from "../config/colors";
@@ -16,6 +26,7 @@ const handleLogOut = async () => {
 
 const ProfileScreen = () => {
   return (
+<<<<<<< HEAD
     <View style={styles.container}>
       {/*<Text>Profile Screen!</Text>*/}
       <ScrollView>
@@ -53,6 +64,14 @@ const ProfileScreen = () => {
           </TouchableOpacity>
       </ScrollView>
     </View>
+=======
+    <SafeAreaView>
+      <Text>Profile Screen!</Text>
+      <TouchableOpacity style={styles.signupButton} onPress={handleLogOut}>
+        <Text>Log Out</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+>>>>>>> added all bottom tab buttons + mapview + qr scanner + home page headers
   );
 };
 
