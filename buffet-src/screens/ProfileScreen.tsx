@@ -22,6 +22,23 @@ const handleLogOut = async () => {
   }
 };
 
+interface UserObject {
+  name: string;
+  email: string;
+  phone: string;
+  isMember: boolean;
+  memberSince: string;
+  profileImg?: string;
+};
+
+const fakeUser: UserObject = {
+  name: 'Joe Schmo',
+  email: 'joeschmo@gmail.com',
+  phone: '(012)345-6789',
+  isMember: true,
+  memberSince: 'August 2021'
+};
+
 const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -29,27 +46,27 @@ const ProfileScreen = () => {
       <ScrollView>
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Name</Text>
-          <Text style={styles.captionText}>PLACEHOLDER</Text>
+          <Text style={styles.captionText}>{fakeUser.name}</Text>
         </View>
 
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Email</Text>
-          <Text style={styles.captionText}>PLACEHOLDER</Text>
+          <Text style={styles.captionText}>{fakeUser.email}</Text>
         </View>
 
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Phone</Text>
-          <Text style={styles.captionText}>PLACEHOLDER</Text>
+          <Text style={styles.captionText}>{fakeUser.phone}</Text>
         </View>
 
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Subscribed Since</Text>
-          <Text style={styles.captionText}>PLACEHOLDER</Text>
+          <Text style={styles.captionText}>{fakeUser.memberSince}</Text>
         </View>
 
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Subscription Status</Text>
-          <Text style={styles.captionText}>PLACEHOLDER</Text>
+          <Text style={styles.captionText}>{fakeUser.isMember ? 'Subscribed' : 'Not Subscribed'}</Text>
         </View>
 
         <TouchableOpacity
