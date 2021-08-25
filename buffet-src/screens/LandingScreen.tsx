@@ -1,11 +1,11 @@
 import React from "react";
 import colors from "../config/colors";
-import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Image, View, StyleSheet, Text, TouchableOpacity, SafeAreaView, Platform } from "react-native";
 import { globalStyles } from "../config/globalStyles";
 
 export default function LandingScreen({ navigation }) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
         <Image
           style={[globalStyles.imageLogo, { marginTop: 60 }]}
@@ -73,7 +73,7 @@ export default function LandingScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary,
+    paddingTop: Platform.OS === 'android' ? 25 : 0
   },
   topView: {
     flex: 1,

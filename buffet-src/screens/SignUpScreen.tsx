@@ -8,6 +8,7 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
+  SafeAreaView, Platform,
 } from "react-native";
 import { Formik } from "formik";
 
@@ -19,7 +20,7 @@ const auth = Firebase.auth();
 export default function SignUpScreen() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Formik
           initialValues={{
             email: "",
@@ -67,24 +68,24 @@ export default function SignUpScreen() {
                 />
               </View>
 
-              <TouchableOpacity
-                onPress={() => {
-                  console.log("Trouble with sign in");
-                }}
-              >
-                <Text style={styles.trouble}>Having trouble logging in?</Text>
-              </TouchableOpacity>
+              {/*<TouchableOpacity*/}
+              {/*  onPress={() => {*/}
+              {/*    console.log("Trouble with sign in");*/}
+              {/*  }}*/}
+              {/*>*/}
+              {/*  <Text style={styles.trouble}>Having trouble logging in?</Text>*/}
+              {/*</TouchableOpacity>*/}
 
               <TouchableOpacity
                 style={styles.signupButton}
                 onPress={formikProps.handleSubmit as any}
               >
-                <Text>SIGN UP</Text>
+                <Text style={[styles.text, { color: colors.white }]}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           )}
         </Formik>
-      </View>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 }
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   inputView: {
     backgroundColor: colors.white,

@@ -8,6 +8,8 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
+  Platform,
+  SafeAreaView
 } from "react-native";
 import { Formik } from "formik";
 import { globalStyles } from "../config/globalStyles";
@@ -20,80 +22,82 @@ const auth = Firebase.auth();
 export default function LoginScreen() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          onSubmit={async (values) => {
-            try {
-              if (values.email !== "" && values.password !== "") {
-                await auth.signInWithEmailAndPassword(
-                  values.email,
-                  values.password
-                );
-              }
-            } catch (error) {
-              console.log(error.message);
-            }
-          }}
-        >
-          {(formikProps) => (
-            <View style={styles.formContainer}>
-              <Image
-                style={styles.image__logo}
-                source={require("../assets/buffet-logo-vertical.png")}
-              />
+      <SafeAreaView style={styles.container}>
+        <View>
+          <Formik
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              onSubmit={async (values) => {
+                try {
+                  if (values.email !== "" && values.password !== "") {
+                    await auth.signInWithEmailAndPassword(
+                        values.email,
+                        values.password
+                    );
+                  }
+                } catch (error) {
+                  console.log(error.message);
+                }
+              }}
+          >
+            {(formikProps) => (
+                <View style={styles.formContainer}>
+                  <Image
+                      style={styles.image__logo}
+                      source={require("../assets/buffet-logo-vertical.png")}
+                  />
 
-              <View style={styles.inputView}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Email"
-                  placeholderTextColor="#003f5c"
-                  onChangeText={formikProps.handleChange("email")}
-                  value={formikProps.values.email}
-                />
-              </View>
+                  <View style={styles.inputView}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Email"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={formikProps.handleChange("email")}
+                        value={formikProps.values.email}
+                    />
+                  </View>
 
-              <View style={styles.inputView}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Password"
-                  placeholderTextColor="#003f5c"
-                  onChangeText={formikProps.handleChange("password")}
-                  value={formikProps.values.password}
-                  secureTextEntry={true}
-                />
-              </View>
+                  <View style={styles.inputView}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Password"
+                        placeholderTextColor="#003f5c"
+                        onChangeText={formikProps.handleChange("password")}
+                        value={formikProps.values.password}
+                        secureTextEntry={true}
+                    />
+                  </View>
 
-              <TouchableOpacity
-                onPress={() => {
-                  console.log("Trouble with sign in");
-                }}
-              >
-                <Text style={styles.trouble}>Having trouble logging in?</Text>
-              </TouchableOpacity>
+                  <TouchableOpacity
+                      onPress={() => {
+                        console.log("Trouble with sign in");
+                      }}
+                  >
+                    <Text style={styles.trouble}>Having trouble logging in?</Text>
+                  </TouchableOpacity>
 
-              <TouchableOpacity
-                style={[
-                  globalStyles.loginButton,
-                  { marginTop: 40, backgroundColor: colors.secondary },
-                ]}
-                onPress={formikProps.handleSubmit as any}
-              >
-                <Text style={[styles.text, { color: colors.white }]}>
-                  Log In
-                </Text>
-              </TouchableOpacity>
+                  <TouchableOpacity
+                      style={[
+                        globalStyles.loginButton,
+                        { marginTop: 40, backgroundColor: colors.secondary },
+                      ]}
+                      onPress={formikProps.handleSubmit as any}
+                  >
+                    <Text style={[styles.text, { color: colors.white }]}>
+                      Log In
+                    </Text>
+                  </TouchableOpacity>
 
-              {/*<TouchableOpacity style={styles.signupButton}>*/}
-              {/*    <Text>SIGN UP</Text>*/}
-              {/*</TouchableOpacity>*/}
-            </View>
-          )}
-        </Formik>
-      </View>
+                  {/*<TouchableOpacity style={styles.signupButton}>*/}
+                  {/*    <Text>SIGN UP</Text>*/}
+                  {/*</TouchableOpacity>*/}
+                </View>
+            )}
+          </Formik>
+        </View>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 }
@@ -105,6 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   formContainer: {
     flex: 1,

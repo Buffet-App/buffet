@@ -5,6 +5,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  SafeAreaView,
+  Platform,
 } from "react-native";
 
 import Firebase from "../../config/firebase";
@@ -22,7 +24,7 @@ const handleLogOut = async () => {
 
 const ProfileScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/*<Text>Profile Screen!</Text>*/}
       <ScrollView>
         <View style={styles.profileStat}>
@@ -66,7 +68,7 @@ const ProfileScreen = () => {
           <Text style={styles.captionText}>Log Out</Text>
         </TouchableOpacity>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    paddingTop: Platform.OS === 'android' ? 25 : 0
     // backgroundColor: colors.primary,
   },
   profileStat: {
