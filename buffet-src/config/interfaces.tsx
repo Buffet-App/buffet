@@ -10,7 +10,7 @@ export interface IUserObject {
 export interface IRestaurantObject {
     name: string;
     address: string;
-    hours: {
+    hours?: {
         monHours: string;
         tuesHours: string;
         wedHours: string;
@@ -19,13 +19,13 @@ export interface IRestaurantObject {
         satHours: string;
         sunHours: string;
     };
-    isParking: boolean;
+    isParking?: boolean;
     restaurantDesc: string;
-    parkingDetails: string;
+    parkingDetails?: string;
     phone: string;
     addOns?: string;
-    photo: string;
-    featured: string;
+    photo?: string;
+    featured?: string;
 };
 
 export interface IDealsObject {
