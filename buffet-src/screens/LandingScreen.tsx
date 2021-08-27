@@ -1,6 +1,14 @@
 import React from "react";
 import colors from "../config/colors";
-import { Image, View, StyleSheet, Text, TouchableOpacity, SafeAreaView, Platform } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Platform,
+} from "react-native";
 import { globalStyles } from "../config/globalStyles";
 
 export default function LandingScreen({ navigation }) {
@@ -25,7 +33,7 @@ export default function LandingScreen({ navigation }) {
           <TouchableOpacity
             style={styles.logoText}
             onPress={() => {
-              navigation.navigate("SignUpScreen");
+              navigation.navigate("SignUpScreen", { isRestaurant: false });
             }}
           >
             <Image
@@ -37,7 +45,7 @@ export default function LandingScreen({ navigation }) {
           <TouchableOpacity
             style={styles.logoText}
             onPress={() => {
-              navigation.navigate("SignUpScreen");
+              navigation.navigate("SignUpScreen", { isRestaurant: true });
             }}
           >
             <Image
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary,
-    paddingTop: Platform.OS === 'android' ? 25 : 0
+    paddingTop: Platform.OS === "android" ? 25 : 0,
   },
   topView: {
     flex: 1,

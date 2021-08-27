@@ -11,7 +11,7 @@ import {
 
 import Firebase from "../../config/firebase";
 import colors from "../config/colors";
-import {IUserObject} from "../config/interfaces";
+import { IUserObject } from "../config/interfaces";
 
 const auth = Firebase.auth();
 
@@ -24,11 +24,11 @@ const handleLogOut = async () => {
 };
 
 const fakeUser: IUserObject = {
-  name: 'Joe Schmo',
-  email: 'joeschmo@gmail.com',
-  phone: '(012)345-6789',
+  name: "Joe Schmo",
+  email: "joeschmo@gmail.com",
+  phone: "(012)345-6789",
   isMember: true,
-  memberSince: 'August 2021'
+  memberSince: "August 2021",
 };
 
 const ProfileScreen = () => {
@@ -58,7 +58,9 @@ const ProfileScreen = () => {
 
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Subscription Status</Text>
-          <Text style={styles.captionText}>{fakeUser.isMember ? 'Subscribed' : 'Not Subscribed'}</Text>
+          <Text style={styles.captionText}>
+            {fakeUser.isMember ? "Subscribed" : "Not Subscribed"}
+          </Text>
         </View>
 
         <TouchableOpacity
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: Platform.OS === 'android' ? 25 : 0
+    paddingTop: Platform.OS === "android" ? 25 : 0,
     // backgroundColor: colors.primary,
   },
   profileStat: {

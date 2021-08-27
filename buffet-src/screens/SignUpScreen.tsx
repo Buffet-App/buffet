@@ -8,16 +8,19 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
-  SafeAreaView, Platform,
+  SafeAreaView,
+  Platform,
 } from "react-native";
 import { Formik } from "formik";
 
 import Firebase from "../../config/firebase";
+import "firebase/firestore";
 import colors from "../config/colors";
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
-export default function SignUpScreen() {
+export default function SignUpScreen({ route }) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.container}>
@@ -28,12 +31,14 @@ export default function SignUpScreen() {
           }}
           onSubmit={async (values) => {
             try {
-              console.log("button pressed");
               if (values.email !== "" && values.password !== "") {
-                await auth.createUserWithEmailAndPassword(
+                const cred = await auth.createUserWithEmailAndPassword(
                   values.email,
                   values.password
                 );
+                db.collection("users").doc(cred.user.uid).set({
+                  isRestaurant: route.params.isRestaurant,
+                });
               }
             } catch (error) {
               console.log(error);
@@ -80,7 +85,9 @@ export default function SignUpScreen() {
                 style={styles.signupButton}
                 onPress={formikProps.handleSubmit as any}
               >
-                <Text style={[styles.text, { color: colors.white }]}>Sign Up</Text>
+                <Text style={[styles.text, { color: colors.white }]}>
+                  Sign Up
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
+    paddingTop: Platform.OS === "android" ? 25 : 0,
   },
   inputView: {
     backgroundColor: colors.white,
