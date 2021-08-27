@@ -11,6 +11,7 @@ import {
 
 import Firebase from "../../config/firebase";
 import colors from "../config/colors";
+import {IUserObject} from "../config/interfaces";
 
 const auth = Firebase.auth();
 
@@ -22,16 +23,7 @@ const handleLogOut = async () => {
   }
 };
 
-interface UserObject {
-  name: string;
-  email: string;
-  phone: string;
-  isMember: boolean;
-  memberSince: string;
-  profileImg?: string;
-};
-
-const fakeUser: UserObject = {
+const fakeUser: IUserObject = {
   name: 'Joe Schmo',
   email: 'joeschmo@gmail.com',
   phone: '(012)345-6789',

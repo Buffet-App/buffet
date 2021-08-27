@@ -8,27 +8,7 @@ import {
     SafeAreaView,
     Platform,
 } from "react-native";
-
-interface IRestaurantObject {
-    name: string;
-    address: string;
-    hours: {
-        monHours: string;
-        tuesHours: string;
-        wedHours: string;
-        thursHours: string;
-        friHours: string;
-        satHours: string;
-        sunHours: string;
-    };
-    isParking: boolean;
-    restaurantDesc: string;
-    parkingDetails: string;
-    phone: string;
-    addOns: string;
-    photo: string;
-    featured: string;
-};
+import {IRestaurantObject} from "../config/interfaces";
 
 const fakeRestaurant: IRestaurantObject = {
     name: "Fake Restaurant",
