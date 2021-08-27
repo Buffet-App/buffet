@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
       margin: 10,
   },
   image: {
-      width: 150,
-      height: 200,
+      width: 180,
+      height: 210,
       resizeMode: 'stretch',
       borderRadius: 10,
   },
