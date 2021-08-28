@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Platform} from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Platform,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import { HomeStack } from "./NavigationStacks";
+
 // CUSTOMER SCREENS IMPORT
-import HomeScreen from "../screens/customers/HomeScreen";
 import MapScreen from "../screens/customers/MapScreen";
 import ScanScreen from "../screens/customers/ScanScreen";
 import MyRestaurantsScreen from "../screens/customers/MyRestaurantsScreen";
@@ -117,12 +124,12 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
   createUserTabs = () => {
     return (
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="HomeStack"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             switch (route.name) {
-              case "Home":
+              case "HomeStack":
                 iconName = focused ? "ios-home" : "ios-home-outline";
                 break;
               case "Map":
@@ -139,15 +146,19 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarStyle: {
-              backgroundColor: colors.white,
-              height: Platform.OS === "android" ? 65 : 90,
+            backgroundColor: colors.white,
+            height: Platform.OS === "android" ? 65 : 90,
           },
           headerShown: false,
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: "gray",
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStack}
+          options={{ unmountOnBlur: true }}
+        />
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen
           name="Scan"
@@ -185,7 +196,9 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
               width: 70,
               height: 70,
               borderRadius: 35,
-              backgroundColor: this.state.isRestaurant ? colors.secondary : colors.primary,
+              backgroundColor: this.state.isRestaurant
+                ? colors.secondary
+                : colors.primary,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -203,10 +216,12 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
             />
           </View>
         </TouchableOpacity>
-        <Text style={{
+        <Text
+          style={{
             color: this.state.isRestaurant ? colors.secondary : colors.primary,
             top: Platform.OS === "android" ? -10 : 0,
-        }}>
+          }}
+        >
           {this.state.isRestaurant ? "New Deal" : "Scan"}
         </Text>
       </View>

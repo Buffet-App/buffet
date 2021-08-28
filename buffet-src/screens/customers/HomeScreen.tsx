@@ -41,7 +41,7 @@ const restaurants: IRestaurantObject[] = [
   },
 ];
 
-const HomeScreen: React.FunctionComponent = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -52,19 +52,7 @@ const HomeScreen: React.FunctionComponent = () => {
             horizontal={true}
             data={restaurants}
             renderItem={({ item }) => (
-              <TouchableOpacity>
-                <Card>
-                  <Text style={styles.restaurantName}>
-                    {item.name.toUpperCase()}
-                  </Text>
-                  <Text style={styles.restaurantDesc}>
-                    {item.restaurantDesc}
-                  </Text>
-                  <View style={styles.imageSection}>
-                    <Image source={{ uri: item.photo }} style={styles.image} />
-                  </View>
-                </Card>
-              </TouchableOpacity>
+              <Card item={item} navigation={navigation} />
             )}
             keyExtractor={(item) => item.name}
           />
@@ -77,19 +65,7 @@ const HomeScreen: React.FunctionComponent = () => {
             horizontal={true}
             data={restaurants}
             renderItem={({ item }) => (
-              <TouchableOpacity>
-                <Card>
-                  <Text style={styles.restaurantName}>
-                    {item.name.toUpperCase()}
-                  </Text>
-                  <Text style={styles.restaurantDesc}>
-                    {item.restaurantDesc}
-                  </Text>
-                  <View style={styles.imageSection}>
-                    <Image source={{ uri: item.photo }} style={styles.image} />
-                  </View>
-                </Card>
-              </TouchableOpacity>
+              <Card item={item} navigation={navigation} />
             )}
             keyExtractor={(item) => item.name}
           />
@@ -102,19 +78,7 @@ const HomeScreen: React.FunctionComponent = () => {
             horizontal={true}
             data={restaurants}
             renderItem={({ item }) => (
-              <TouchableOpacity>
-                <Card>
-                  <Text style={styles.restaurantName}>
-                    {item.name.toUpperCase()}
-                  </Text>
-                  <Text style={styles.restaurantDesc}>
-                    {item.restaurantDesc}
-                  </Text>
-                  <View style={styles.imageSection}>
-                    <Image source={{ uri: item.photo }} style={styles.image} />
-                  </View>
-                </Card>
-              </TouchableOpacity>
+              <Card item={item} navigation={navigation} />
             )}
             keyExtractor={(item) => item.name}
           />
@@ -127,19 +91,7 @@ const HomeScreen: React.FunctionComponent = () => {
             horizontal={true}
             data={restaurants}
             renderItem={({ item }) => (
-              <TouchableOpacity>
-                <Card>
-                  <Text style={styles.restaurantName}>
-                    {item.name.toUpperCase()}
-                  </Text>
-                  <Text style={styles.restaurantDesc}>
-                    {item.restaurantDesc}
-                  </Text>
-                  <View style={styles.imageSection}>
-                    <Image source={{ uri: item.photo }} style={styles.image} />
-                  </View>
-                </Card>
-              </TouchableOpacity>
+              <Card item={item} navigation={navigation} />
             )}
             keyExtractor={(item) => item.name}
           />
@@ -161,23 +113,6 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 10,
-  },
-  imageSection: {
-    alignItems: "center",
-    margin: 10,
-  },
-  image: {
-    width: 180,
-    height: 210,
-    resizeMode: "stretch",
-    borderRadius: 10,
-  },
-  restaurantName: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  restaurantDesc: {
-    fontSize: 16,
   },
 });
 export default HomeScreen;
