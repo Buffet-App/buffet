@@ -14,6 +14,7 @@ import colors from "../../config/colors";
 import { IUserObject } from "../../config/interfaces";
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 const handleLogOut = async () => {
   try {
@@ -43,7 +44,7 @@ const ProfileScreen = () => {
 
         <View style={styles.profileStat}>
           <Text style={styles.captionTitle}>Email</Text>
-          <Text style={styles.captionText}>{fakeUser.email}</Text>
+          <Text style={styles.captionText}>{auth.currentUser.email}</Text>
         </View>
 
         <View style={styles.profileStat}>
