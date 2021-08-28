@@ -91,7 +91,7 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
           },
           tabBarStyle: {
             backgroundColor: colors.white,
-            //height: 90,
+            height: 65,
           },
           tabBarActiveTintColor: colors.secondary,
           tabBarInactiveTintColor: "gray",
@@ -140,7 +140,7 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
           },
           tabBarStyle: {
               backgroundColor: colors.white,
-              // height: 90,
+              height: 65,
           },
           headerShown: false,
           tabBarActiveTintColor: colors.primary,
@@ -203,7 +203,10 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
             />
           </View>
         </TouchableOpacity>
-        <Text style={{ color: colors.primary }}>
+        <Text style={{
+            color: this.state.isRestaurant ? colors.secondary : colors.primary,
+            top: -10,
+        }}>
           {this.state.isRestaurant ? "New Deal" : "Scan"}
         </Text>
       </View>
