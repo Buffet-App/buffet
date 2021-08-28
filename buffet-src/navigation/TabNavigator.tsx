@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Platform} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -91,7 +91,7 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
           },
           tabBarStyle: {
             backgroundColor: colors.white,
-            height: 65,
+            height: Platform.OS === "android" ? 65 : 90,
           },
           tabBarActiveTintColor: colors.secondary,
           tabBarInactiveTintColor: "gray",
@@ -140,7 +140,7 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
           },
           tabBarStyle: {
               backgroundColor: colors.white,
-              height: 65,
+              height: Platform.OS === "android" ? 65 : 90,
           },
           headerShown: false,
           tabBarActiveTintColor: colors.primary,
@@ -205,7 +205,7 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
         </TouchableOpacity>
         <Text style={{
             color: this.state.isRestaurant ? colors.secondary : colors.primary,
-            top: -10,
+            top: Platform.OS === "android" ? -10 : 0,
         }}>
           {this.state.isRestaurant ? "New Deal" : "Scan"}
         </Text>
