@@ -9,9 +9,9 @@ import {
   Platform,
 } from "react-native";
 
-import Firebase from "../../config/firebase";
-import colors from "../config/colors";
-import { IUserObject } from "../config/interfaces";
+import Firebase from "../../../config/firebase";
+import colors from "../../config/colors";
+import { IUserObject } from "../../config/interfaces";
 
 const auth = Firebase.auth();
 

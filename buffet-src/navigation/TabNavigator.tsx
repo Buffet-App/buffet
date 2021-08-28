@@ -1,14 +1,22 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import HomeScreen from "../screens/HomeScreen";
-import MapScreen from "../screens/MapScreen";
-import ScanScreen from "../screens/ScanScreen";
-import MyRestaurantsScreen from "../screens/MyRestaurantsScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+// CUSTOMER SCREENS IMPORT
+import HomeScreen from "../screens/customers/HomeScreen";
+import MapScreen from "../screens/customers/MapScreen";
+import ScanScreen from "../screens/customers/ScanScreen";
+import MyRestaurantsScreen from "../screens/customers/MyRestaurantsScreen";
+import ProfileScreen from "../screens/customers/ProfileScreen";
+// RESTAURANT SCREENS IMPORT
+import RestaurantHomeScreen from "../screens/restaurants/RestaurantHomeScreen";
+import AnalyticsScreen from "../screens/restaurants/AnalyticsScreen";
+import NewDealScreen from "../screens/restaurants/NewDealScreen";
+import BankScreen from "../screens/restaurants/BankScreen";
+import RestaurantProfileScreen from "../screens/restaurants/RestaurantProfileScreen";
+
 import colors from "../config/colors";
 import Firebase from "../../config/firebase";
 import firebase from "firebase/app";
@@ -56,10 +64,52 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
 
   createRestaurantTabs = () => {
     return (
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            switch (route.name) {
+              case "Home":
+                iconName = focused ? "ios-home" : "ios-home-outline";
+                break;
+              case "Analytics":
+                iconName = focused ? "analytics" : "analytics-outline";
+                break;
+              case "New Deal":
+                iconName = focused ? "add" : "add-outline";
+                break;
+              case "Bank":
+                iconName = focused ? "cash" : "cash-outline";
+                break;
+              case "Profile":
+                iconName = focused ? "ios-person" : "ios-person-outline";
+                break;
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarStyle: {
+            backgroundColor: colors.white,
+            height: 90,
+          },
+          tabBarActiveTintColor: colors.primary,
+          tabBarInactiveTintColor: "gray",
+        })}
+      >
+        <Tab.Screen name="Home" component={RestaurantHomeScreen} />
+        <Tab.Screen name="Analytics" component={AnalyticsScreen} />
+        <Tab.Screen
+          name="New Deal"
+          component={NewDealScreen}
+          options={{
+            tabBarButton: (props) => {
+              return this.customTabBarButton(props);
+            },
+          }}
+        />
+        <Tab.Screen name="Bank" component={BankScreen} />
+        <Tab.Screen name="Profile" component={RestaurantProfileScreen} />
       </Tab.Navigator>
     );
   };
@@ -78,9 +128,6 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
               case "Map":
                 iconName = focused ? "ios-map" : "ios-map-outline";
                 break;
-              case "Scan":
-                iconName = focused ? "qr-code" : "qr-code-outline";
-                break;
               case "My Restaurants":
                 iconName = focused ? "heart" : "heart-outline";
                 break;
@@ -98,10 +145,64 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Scan" component={ScanScreen} />
+        <Tab.Screen
+          name="Scan"
+          component={ScanScreen}
+          options={{
+            tabBarButton: (props) => {
+              return this.customTabBarButton(props);
+            },
+          }}
+        />
         <Tab.Screen name="My Restaurants" component={MyRestaurantsScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
+    );
+  };
+
+  customTabBarButton = (props) => {
+    return (
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            top: -10,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={props.onPress}
+        >
+          <View
+            style={{
+              width: 70,
+              height: 70,
+              borderRadius: 35,
+              backgroundColor: colors.primary,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Ionicons
+              name={
+                this.state.isRestaurant
+                  ? "restaurant-outline"
+                  : "qr-code-outline"
+              }
+              style={{
+                fontSize: 45,
+                color: "white",
+              }}
+            />
+          </View>
+        </TouchableOpacity>
+        <Text style={{ color: colors.primary }}>
+          {this.state.isRestaurant ? "New Deal" : "Scan"}
+        </Text>
+      </View>
     );
   };
 }
