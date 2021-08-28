@@ -45,74 +45,76 @@ const handleLogOut = async () => {
 const RestaurantProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Restaurant Profile Screen</Text>
+        <ScrollView>
+            <Text>Restaurant Profile Screen</Text>
 
-      <View style={styles.profileStat}>
-        <Text>Name: </Text>
-        <Text>{fakeRestaurant.name}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Name: </Text>
+                <Text>{fakeRestaurant.name}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Address: </Text>
-        <Text>{fakeRestaurant.address}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Address: </Text>
+                <Text>{fakeRestaurant.address}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Hours: </Text>
-        <View style={styles.hours}>
-          <Text>Monday: {fakeRestaurant.hours.monHours}</Text>
-          <Text>Tuesday: {fakeRestaurant.hours.tuesHours}</Text>
-          <Text>Wednesday: {fakeRestaurant.hours.wedHours}</Text>
-          <Text>Thursday: {fakeRestaurant.hours.thursHours}</Text>
-          <Text>Friday: {fakeRestaurant.hours.friHours}</Text>
-          <Text>Saturday: {fakeRestaurant.hours.satHours}</Text>
-          <Text>Sunday: {fakeRestaurant.hours.sunHours}</Text>
-        </View>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Hours: </Text>
+                <View style={styles.hours}>
+                    <Text>Monday: {fakeRestaurant.hours.monHours}</Text>
+                    <Text>Tuesday: {fakeRestaurant.hours.tuesHours}</Text>
+                    <Text>Wednesday: {fakeRestaurant.hours.wedHours}</Text>
+                    <Text>Thursday: {fakeRestaurant.hours.thursHours}</Text>
+                    <Text>Friday: {fakeRestaurant.hours.friHours}</Text>
+                    <Text>Saturday: {fakeRestaurant.hours.satHours}</Text>
+                    <Text>Sunday: {fakeRestaurant.hours.sunHours}</Text>
+                </View>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Has Parking: </Text>
-        <Text>{fakeRestaurant.isParking.toString()}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Has Parking: </Text>
+                <Text>{fakeRestaurant.isParking.toString()}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Description: </Text>
-        <Text>{fakeRestaurant.restaurantDesc}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Description: </Text>
+                <Text>{fakeRestaurant.restaurantDesc}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Parking Details: </Text>
-        <Text>{fakeRestaurant.parkingDetails}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Parking Details: </Text>
+                <Text>{fakeRestaurant.parkingDetails}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Phone: </Text>
-        <Text>{fakeRestaurant.address}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Phone: </Text>
+                <Text>{fakeRestaurant.address}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Add Ons: </Text>
-        <Text>{fakeRestaurant.addOns}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Add Ons: </Text>
+                <Text>{fakeRestaurant.addOns}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Name: </Text>
-        <Text>{fakeRestaurant.name}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Name: </Text>
+                <Text>{fakeRestaurant.name}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Photo: </Text>
-        <Text>{fakeRestaurant.photo}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Photo: </Text>
+                <Text>{fakeRestaurant.photo}</Text>
+            </View>
 
-      <View style={styles.profileStat}>
-        <Text>Featured: </Text>
-        <Text>{fakeRestaurant.featured}</Text>
-      </View>
+            <View style={styles.profileStat}>
+                <Text>Featured: </Text>
+                <Text>{fakeRestaurant.featured}</Text>
+            </View>
 
-      <TouchableOpacity onPress={handleLogOut}>
-        <Text>Log Out</Text>
-      </TouchableOpacity>
+            <TouchableOpacity onPress={handleLogOut}>
+                <Text>Log Out</Text>
+            </TouchableOpacity>
+        </ScrollView>
     </SafeAreaView>
   );
 };

@@ -91,9 +91,9 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
           },
           tabBarStyle: {
             backgroundColor: colors.white,
-            height: 90,
+            //height: 90,
           },
-          tabBarActiveTintColor: colors.primary,
+          tabBarActiveTintColor: colors.secondary,
           tabBarInactiveTintColor: "gray",
         })}
       >
@@ -138,6 +138,10 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          tabBarStyle: {
+              backgroundColor: colors.white,
+              // height: 90,
+          },
           headerShown: false,
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: "gray",
@@ -181,7 +185,7 @@ class TabNavigator extends Component<{}, { isRestaurant: boolean }> {
               width: 70,
               height: 70,
               borderRadius: 35,
-              backgroundColor: colors.primary,
+              backgroundColor: this.state.isRestaurant ? colors.secondary : colors.primary,
               justifyContent: "center",
               alignItems: "center",
             }}
