@@ -15,7 +15,7 @@ import Card from "../../components/Card";
 import { IRestaurantObject } from "../../config/interfaces";
 import colors from "../../config/colors";
 
-const restaurants: IRestaurantObject[] = [
+export const restaurants: IRestaurantObject[] = [
   {
     name: "In-N-Out",
     address: "123 Burger Way",

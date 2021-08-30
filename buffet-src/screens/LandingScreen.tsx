@@ -6,14 +6,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   Platform,
 } from "react-native";
-import { globalStyles } from "../config/globalStyles";
+import { globalStyles, baseText, boldText } from "../config/globalStyles";
+import LineBreak from "../components/LineBreak";
 
 export default function LandingScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.topView}>
         <Image
           style={[globalStyles.imageLogo, { marginTop: 60 }]}
@@ -57,17 +57,7 @@ export default function LandingScreen({ navigation }) {
         </View>
         {/*Log In Button*/}
         <View>
-          <View
-            style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
-          >
-            <View style={{ flex: 1, height: 1, backgroundColor: "gray" }} />
-            <View>
-              <Text style={{ width: 25, textAlign: "center", color: "gray" }}>
-                OR
-              </Text>
-            </View>
-            <View style={{ flex: 1, height: 1, backgroundColor: "gray" }} />
-          </View>
+          <LineBreak>OR</LineBreak>
 
           <TouchableOpacity
             style={globalStyles.loginButton}
@@ -81,7 +71,7 @@ export default function LandingScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -107,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   captionText: {
-    fontWeight: "bold",
+    ...boldText,
     fontSize: 24,
     textAlign: "center",
     color: colors.text,
@@ -116,6 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   logoText: {
+    ...baseText,
     flexDirection: "column",
     margin: 5,
     alignItems: "center",

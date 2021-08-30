@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -32,56 +32,81 @@ const fakeUser: IUserObject = {
   memberSince: "August 2021",
 };
 
-const ProfileScreen = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      {/*<Text>Profile Screen!</Text>*/}
-      <ScrollView>
-        <View style={styles.profileStat}>
-          <Text style={styles.captionTitle}>Name</Text>
-          <Text style={styles.captionText}>{fakeUser.name}</Text>
-        </View>
+const ProfileScreen = ({ navigation }) => {
+  const [profile, setProfile] = useState<IUserObject>(undefined);
 
-        <View style={styles.profileStat}>
-          <Text style={styles.captionTitle}>Email</Text>
-          <Text style={styles.captionText}>{auth.currentUser.email}</Text>
-        </View>
+  useEffect(() => {
+    db.collection("users")
+      .doc(auth.currentUser.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setProfile(doc.data());
+        }
+      });
+  }, []);
 
-        <View style={styles.profileStat}>
-          <Text style={styles.captionTitle}>Phone</Text>
-          <Text style={styles.captionText}>{fakeUser.phone}</Text>
-        </View>
+  if (profile !== undefined) {
+    return (
+      <SafeAreaView style={styles.container}>
+        {/*<Text>Profile Screen!</Text>*/}
+        <ScrollView>
+          <TouchableOpacity
+            style={styles.signupButton}
+            onPress={() => {
+              navigation.navigate("Subscription");
+            }}
+          >
+            <Text style={styles.captionText}>Subscribe</Text>
+          </TouchableOpacity>
 
-        <View style={styles.profileStat}>
-          <Text style={styles.captionTitle}>Subscribed Since</Text>
-          <Text style={styles.captionText}>{fakeUser.memberSince}</Text>
-        </View>
+          <View style={styles.profileStat}>
+            <Text style={styles.captionTitle}>Name</Text>
+            <Text style={styles.captionText}>{profile.name}</Text>
+          </View>
 
-        <View style={styles.profileStat}>
-          <Text style={styles.captionTitle}>Subscription Status</Text>
-          <Text style={styles.captionText}>
-            {fakeUser.isMember ? "Subscribed" : "Not Subscribed"}
-          </Text>
-        </View>
+          <View style={styles.profileStat}>
+            <Text style={styles.captionTitle}>Email</Text>
+            <Text style={styles.captionText}>{profile.email}</Text>
+          </View>
 
-        <TouchableOpacity
-          style={styles.signupButton}
-          onPress={() => {
-            console.log("want to edit profile");
-          }}
-        >
-          <Text style={styles.captionText}>Edit Profile</Text>
-        </TouchableOpacity>
+          <View style={styles.profileStat}>
+            <Text style={styles.captionTitle}>Phone</Text>
+            <Text style={styles.captionText}>{profile.phone}</Text>
+          </View>
 
-        <TouchableOpacity
-          style={[styles.signupButton, { marginBottom: 20 }]}
-          onPress={handleLogOut}
-        >
-          <Text style={styles.captionText}>Log Out</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
-  );
+          <View style={styles.profileStat}>
+            <Text style={styles.captionTitle}>Subscribed Since</Text>
+            <Text style={styles.captionText}>{fakeUser.memberSince}</Text>
+          </View>
+
+          <View style={styles.profileStat}>
+            <Text style={styles.captionTitle}>Subscription Status</Text>
+            <Text style={styles.captionText}>
+              {fakeUser.isMember ? "Subscribed" : "Not Subscribed"}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.signupButton}
+            onPress={() => {
+              console.log("want to edit profile");
+            }}
+          >
+            <Text style={styles.captionText}>Edit Profile</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.signupButton, { marginBottom: 20 }]}
+            onPress={handleLogOut}
+          >
+            <Text style={styles.captionText}>Log Out</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+  return <View />;
 };
 
 const styles = StyleSheet.create({

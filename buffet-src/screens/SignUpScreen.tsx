@@ -5,7 +5,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
   Keyboard,
   TouchableWithoutFeedback,
   SafeAreaView,
@@ -15,7 +14,9 @@ import { Formik } from "formik";
 
 import Firebase from "../../config/firebase";
 import "firebase/firestore";
+import { globalStyles } from "../config/globalStyles";
 import colors from "../config/colors";
+import LineBreak from "../components/LineBreak";
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -26,7 +27,10 @@ export default function SignUpScreen({ route }) {
       <SafeAreaView style={styles.container}>
         <Formik
           initialValues={{
+            name: "",
             email: "",
+            phone: "",
+            zipcode: "",
             password: "",
           }}
           onSubmit={async (values) => {
@@ -37,6 +41,10 @@ export default function SignUpScreen({ route }) {
                   values.password
                 );
                 db.collection("users").doc(cred.user.uid).set({
+                  name: values.name,
+                  email: values.email,
+                  phone: values.phone,
+                  zipcode: values.zipcode,
                   isRestaurant: route.params.isRestaurant,
                 });
               }
@@ -47,10 +55,20 @@ export default function SignUpScreen({ route }) {
         >
           {(formikProps) => (
             <View style={styles.formContainer}>
-              <Image
-                style={styles.image__logo}
-                source={require("../assets/buffet-logo-vertical.png")}
-              />
+              <Text style={globalStyles.headerText}>Let's Get Started!</Text>
+              <Text style={[globalStyles.descText, { marginBottom: 50 }]}>
+                Create your own account with Buffet
+              </Text>
+
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Full Name"
+                  placeholderTextColor="#003f5c"
+                  onChangeText={formikProps.handleChange("name")}
+                  value={formikProps.values.name}
+                />
+              </View>
 
               <View style={styles.inputView}>
                 <TextInput
@@ -65,6 +83,26 @@ export default function SignUpScreen({ route }) {
               <View style={styles.inputView}>
                 <TextInput
                   style={styles.textInput}
+                  placeholder="Phone Number"
+                  placeholderTextColor="#003f5c"
+                  onChangeText={formikProps.handleChange("phone")}
+                  value={formikProps.values.phone}
+                />
+              </View>
+
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Zip Code"
+                  placeholderTextColor="#003f5c"
+                  onChangeText={formikProps.handleChange("zipcode")}
+                  value={formikProps.values.zipcode}
+                />
+              </View>
+
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.textInput}
                   placeholder="Password"
                   placeholderTextColor="#003f5c"
                   onChangeText={formikProps.handleChange("password")}
@@ -73,22 +111,16 @@ export default function SignUpScreen({ route }) {
                 />
               </View>
 
-              {/*<TouchableOpacity*/}
-              {/*  onPress={() => {*/}
-              {/*    console.log("Trouble with sign in");*/}
-              {/*  }}*/}
-              {/*>*/}
-              {/*  <Text style={styles.trouble}>Having trouble logging in?</Text>*/}
-              {/*</TouchableOpacity>*/}
-
               <TouchableOpacity
-                style={styles.signupButton}
+                style={globalStyles.loginButton}
                 onPress={formikProps.handleSubmit as any}
               >
                 <Text style={[styles.text, { color: colors.white }]}>
                   Sign Up
                 </Text>
               </TouchableOpacity>
+
+              <LineBreak>OR</LineBreak>
             </View>
           )}
         </Formik>
@@ -101,22 +133,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
   formContainer: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: Platform.OS === "android" ? 25 : 0,
   },
   inputView: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray,
     borderRadius: 30,
-    width: 250,
+    width: 300,
     height: 45,
     marginBottom: 20,
   },

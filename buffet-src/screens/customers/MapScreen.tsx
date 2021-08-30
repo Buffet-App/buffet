@@ -1,12 +1,30 @@
 import React from "react";
 import MapView from "react-native-maps";
-import { Image, View, StyleSheet, Text, Dimensions } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  Dimensions,
+} from "react-native";
 
-const MapScreen: React.FunctionComponent = () => {
+import { globalStyles } from "../../config/globalStyles";
+import Card from "../../components/Card";
+import { restaurants } from "./HomeScreen";
+
+const MapScreen = ({ navigation }) => {
   return (
-    <View>
+    <ScrollView>
       <MapView style={styles.map} />
-    </View>
+      <Text style={globalStyles.headerText}>restaurants</Text>
+      <FlatList
+        nestedScrollEnabled={true}
+        horizontal={true}
+        data={restaurants}
+        renderItem={({ item }) => <Card item={item} navigation={navigation} />}
+        keyExtractor={(item) => item.name}
+      />
+    </ScrollView>
   );
 };
 
@@ -21,6 +39,6 @@ const styles = StyleSheet.create({
   },
   map: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("window").height / 1.7,
   },
 });

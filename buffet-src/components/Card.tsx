@@ -1,12 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
-import { HomeStackParamList } from "../navigation/NavigationStacks";
-
-type HomeStackProps = StackNavigationProp<HomeStackParamList, "Home">;
 
 export default function Card(props) {
   return (

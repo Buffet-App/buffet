@@ -8,6 +8,7 @@ import MapScreen from "../screens/customers/MapScreen";
 import ScanScreen from "../screens/customers/ScanScreen";
 import MyRestaurantsScreen from "../screens/customers/MyRestaurantsScreen";
 import ProfileScreen from "../screens/customers/ProfileScreen";
+import SubscriptionScreen from "../screens/customers/SubscriptionScreen";
 
 // RESTAURANT SCREENS IMPORT
 import RestaurantHomeScreen from "../screens/restaurants/RestaurantHomeScreen";
@@ -18,19 +19,31 @@ import RestaurantProfileScreen from "../screens/restaurants/RestaurantProfileScr
 import RestaurantInfoScreen from "../screens/restaurants/RestaurantInfoScreen";
 
 export type HomeStackParamList = {
-  Home: undefined;
+  HomeStack: undefined;
+  MapStack: undefined;
+  ScanStack: undefined;
+  MyFavoritesStack: undefined;
+  ProfileStack: undefined;
   RestaurantInfo: undefined;
+  Subscription: undefined;
 };
 
-export const HomeStack = () => {
+export const HomeStack = (props) => {
   const Stack = createNativeStackNavigator<HomeStackParamList>();
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName={props.initialRoute}
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      {/* TAB NAV -> STACK NAV ENTRYPOINTS */}
+      <Stack.Screen name="HomeStack" component={HomeScreen} />
+      <Stack.Screen name="MapStack" component={MapScreen} />
+      <Stack.Screen name="ScanStack" component={ScanScreen} />
+      <Stack.Screen name="MyFavoritesStack" component={MyRestaurantsScreen} />
+      <Stack.Screen name="ProfileStack" component={ProfileScreen} />
+      {/* NESTED SCREENS */}
       <Stack.Screen name="RestaurantInfo" component={RestaurantInfoScreen} />
+      <Stack.Screen name="Subscription" component={SubscriptionScreen} />
     </Stack.Navigator>
   );
 };
