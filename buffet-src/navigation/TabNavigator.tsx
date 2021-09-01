@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -11,6 +11,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { HomeStack } from "./NavigationStacks";
+import {
+  RestaurantInfoContextProvider,
+  UserInfoContext,
+} from "../UserInfoContextProvider";
 
 // CUSTOMER SCREENS IMPORT
 import MapScreen from "../screens/customers/MapScreen";
@@ -27,115 +31,73 @@ import RestaurantSignUpFlow from "../screens/restaurants/RestaurantSignUpFlow";
 
 import colors from "../config/colors";
 import { IUserObject } from "../config/interfaces";
-import Firebase from "../../config/firebase";
-import firebase from "firebase/app";
-import "firebase/firestore";
 
 const Tab = createBottomTabNavigator();
 
-const auth = Firebase.auth();
-const db = firebase.firestore();
+export const TabNavigator = () => {
+  const userInfo = React.useContext<IUserObject>(UserInfoContext);
 
-class TabNavigator extends Component<{}, { userInfo: IUserObject }> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      userInfo: undefined,
-    };
-  }
-
-  async componentDidMount() {
-    let doc = await db.collection("users").doc(auth.currentUser.uid).get();
-    if (doc.exists) {
-      this.setState({ userInfo: doc.data() as IUserObject });
-    } else {
-      console.log("No such document!");
-    }
-  }
-
-  render() {
-    if (this.state.userInfo !== undefined) {
-      return this.state.userInfo.isRestaurant
-        ? this.createRestaurantTabs()
-        : this.createUserTabs();
-    }
-    return <View />;
-  }
-
-  createRestaurantTabs = () => {
-    console.log("RENDERED");
-    console.log(this.state.userInfo.restaurantId);
-    if (this.state.userInfo.restaurantId !== undefined) {
+  const createRestaurantTabs = () => {
+    if (userInfo.restaurantId !== undefined) {
       return (
-        <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName="Home"
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-                switch (route.name) {
-                  case "Home":
-                    iconName = focused ? "ios-home" : "ios-home-outline";
-                    break;
-                  case "Analytics":
-                    iconName = focused ? "analytics" : "analytics-outline";
-                    break;
-                  case "New Deal":
-                    iconName = focused ? "add" : "add-outline";
-                    break;
-                  case "Bank":
-                    iconName = focused ? "cash" : "cash-outline";
-                    break;
-                  case "Profile":
-                    iconName = focused ? "ios-person" : "ios-person-outline";
-                    break;
-                }
+        <RestaurantInfoContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator
+              initialRouteName="Home"
+              screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  let iconName;
+                  switch (route.name) {
+                    case "Home":
+                      iconName = focused ? "ios-home" : "ios-home-outline";
+                      break;
+                    case "Analytics":
+                      iconName = focused ? "analytics" : "analytics-outline";
+                      break;
+                    case "New Deal":
+                      iconName = focused ? "add" : "add-outline";
+                      break;
+                    case "Bank":
+                      iconName = focused ? "cash" : "cash-outline";
+                      break;
+                    case "Profile":
+                      iconName = focused ? "ios-person" : "ios-person-outline";
+                      break;
+                  }
 
-                return <Ionicons name={iconName} size={size} color={color} />;
-              },
-              tabBarStyle: {
-                backgroundColor: colors.white,
-                height: Platform.OS === "android" ? 65 : 90,
-              },
-              tabBarActiveTintColor: colors.secondary,
-              tabBarInactiveTintColor: "gray",
-            })}
-          >
-            <Tab.Screen name="Home" component={RestaurantHomeScreen} />
-            <Tab.Screen name="Analytics" component={AnalyticsScreen} />
-            <Tab.Screen
-              name="New Deal"
-              component={NewDealScreen}
-              options={{
-                tabBarButton: (props) => {
-                  return this.customTabBarButton(props);
+                  return <Ionicons name={iconName} size={size} color={color} />;
                 },
-              }}
-            />
-            <Tab.Screen name="Bank" component={BankScreen} />
-            <Tab.Screen name="Profile" component={RestaurantProfileScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
+                tabBarStyle: {
+                  backgroundColor: colors.white,
+                  height: Platform.OS === "android" ? 65 : 90,
+                },
+                tabBarActiveTintColor: colors.secondary,
+                tabBarInactiveTintColor: "gray",
+              })}
+            >
+              <Tab.Screen name="Home" component={RestaurantHomeScreen} />
+              <Tab.Screen name="Analytics" component={AnalyticsScreen} />
+              <Tab.Screen
+                name="New Deal"
+                component={NewDealScreen}
+                options={{
+                  tabBarButton: (props) => {
+                    return customTabBarButton(props);
+                  },
+                }}
+              />
+              <Tab.Screen name="Bank" component={BankScreen} />
+              <Tab.Screen name="Profile" component={RestaurantProfileScreen} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantInfoContextProvider>
       );
     } else {
-      return (
-        <RestaurantSignUpFlow
-          userInfoUpdater={(restaurantId) => {
-            console.log("YEET THIS SHOULD BE DIFFERENT NOW");
-            this.setState((prevState) => ({
-              userInfo: {
-                ...prevState.userInfo,
-                restaurantId: restaurantId,
-              },
-            }));
-          }}
-        />
-      );
+      return <RestaurantSignUpFlow />;
     }
   };
 
-  createUserTabs = () => {
+  const createUserTabs = () => {
     return (
       <NavigationContainer>
         <Tab.Navigator
@@ -189,7 +151,7 @@ class TabNavigator extends Component<{}, { userInfo: IUserObject }> {
             }}
             options={{
               tabBarButton: (props) => {
-                return this.customTabBarButton(props);
+                return customTabBarButton(props);
               },
             }}
           />
@@ -210,7 +172,7 @@ class TabNavigator extends Component<{}, { userInfo: IUserObject }> {
     );
   };
 
-  customTabBarButton = (props) => {
+  const customTabBarButton = (props) => {
     return (
       <View
         style={{
@@ -231,7 +193,7 @@ class TabNavigator extends Component<{}, { userInfo: IUserObject }> {
               width: 70,
               height: 70,
               borderRadius: 35,
-              backgroundColor: this.state.userInfo.isRestaurant
+              backgroundColor: userInfo.isRestaurant
                 ? colors.secondary
                 : colors.primary,
               justifyContent: "center",
@@ -240,9 +202,7 @@ class TabNavigator extends Component<{}, { userInfo: IUserObject }> {
           >
             <Ionicons
               name={
-                this.state.userInfo.isRestaurant
-                  ? "restaurant-outline"
-                  : "qr-code-outline"
+                userInfo.isRestaurant ? "restaurant-outline" : "qr-code-outline"
               }
               style={{
                 fontSize: 45,
@@ -253,18 +213,21 @@ class TabNavigator extends Component<{}, { userInfo: IUserObject }> {
         </TouchableOpacity>
         <Text
           style={{
-            color: this.state.userInfo.isRestaurant
-              ? colors.secondary
-              : colors.primary,
+            color: userInfo.isRestaurant ? colors.secondary : colors.primary,
             top: Platform.OS === "android" ? -10 : 0,
           }}
         >
-          {this.state.userInfo.isRestaurant ? "New Deal" : "Scan"}
+          {userInfo.isRestaurant ? "New Deal" : "Scan"}
         </Text>
       </View>
     );
   };
-}
+
+  if (userInfo !== undefined) {
+    return userInfo.isRestaurant ? createRestaurantTabs() : createUserTabs();
+  }
+  return <View />;
+};
 
 const styles = StyleSheet.create({
   tabBarStyle: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   ScrollView,
   View,
@@ -12,9 +12,9 @@ import {
 import Firebase from "../../../config/firebase";
 import colors from "../../config/colors";
 import { IUserObject } from "../../config/interfaces";
+import { UserInfoContext } from "../../UserInfoContextProvider";
 
 const auth = Firebase.auth();
-const db = Firebase.firestore();
 
 const handleLogOut = async () => {
   try {
@@ -33,20 +33,9 @@ const fakeUser: IUserObject = {
 };
 
 const ProfileScreen = ({ navigation }) => {
-  const [profile, setProfile] = useState<IUserObject>(undefined);
+  const userInfo = useContext<IUserObject>(UserInfoContext);
 
-  useEffect(() => {
-    db.collection("users")
-      .doc(auth.currentUser.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setProfile(doc.data());
-        }
-      });
-  }, []);
-
-  if (profile !== undefined) {
+  if (userInfo !== undefined) {
     return (
       <SafeAreaView style={styles.container}>
         {/*<Text>Profile Screen!</Text>*/}
@@ -62,17 +51,17 @@ const ProfileScreen = ({ navigation }) => {
 
           <View style={styles.profileStat}>
             <Text style={styles.captionTitle}>Name</Text>
-            <Text style={styles.captionText}>{profile.name}</Text>
+            <Text style={styles.captionText}>{userInfo.name}</Text>
           </View>
 
           <View style={styles.profileStat}>
             <Text style={styles.captionTitle}>Email</Text>
-            <Text style={styles.captionText}>{profile.email}</Text>
+            <Text style={styles.captionText}>{userInfo.email}</Text>
           </View>
 
           <View style={styles.profileStat}>
             <Text style={styles.captionTitle}>Phone</Text>
-            <Text style={styles.captionText}>{profile.phone}</Text>
+            <Text style={styles.captionText}>{userInfo.phone}</Text>
           </View>
 
           <View style={styles.profileStat}>

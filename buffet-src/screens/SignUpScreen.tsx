@@ -40,7 +40,8 @@ export default function SignUpScreen({ route }) {
                   values.email,
                   values.password
                 );
-                db.collection("users").doc(cred.user.uid).set({
+                console.log("WRITE:  SignUp");
+                await db.collection("users").doc(cred.user.uid).set({
                   name: values.name,
                   email: values.email,
                   phone: values.phone,

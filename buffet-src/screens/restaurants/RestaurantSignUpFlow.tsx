@@ -20,7 +20,7 @@ import colors from "../../config/colors";
 const auth = Firebase.auth();
 const db = Firebase.firestore();
 
-export default function RestaurantSignUpFlow(props) {
+export default function RestaurantSignUpFlow() {
   return (
     <SafeAreaView style={styles.container}>
       <Formik
@@ -33,6 +33,7 @@ export default function RestaurantSignUpFlow(props) {
         }}
         onSubmit={async (values) => {
           try {
+            console.log("write:  RestaurantSignupFlow");
             const docRef = await db.collection("restaurants").add({
               name: values.name,
               phone: values.phone,
@@ -40,13 +41,13 @@ export default function RestaurantSignUpFlow(props) {
               city: values.city,
               zipcode: values.zipcode,
             });
+            console.log("write:  RestaurantSignupFlow");
             await db.collection("users").doc(auth.currentUser.uid).set(
               {
                 restaurantId: docRef.id,
               },
               { merge: true }
             );
-            props.userInfoUpdater(docRef.id);
           } catch (error) {
             console.log(error);
           }

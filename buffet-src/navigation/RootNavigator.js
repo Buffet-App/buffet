@@ -3,6 +3,7 @@ import { View, ActivityIndicator } from "react-native";
 
 import Firebase from "../../config/firebase";
 import { AuthenticatedUserContext } from "./AuthenticatedUserProvider";
+import { UserInfoContextProvider } from "../UserInfoContextProvider";
 import AuthNavigator from "./AuthNavigator";
 import TabNavigator from "./TabNavigator";
 
@@ -32,7 +33,13 @@ const RootNavigator = () => {
     );
   }
 
-  return user ? <TabNavigator /> : <AuthNavigator />;
+  return user ? (
+    <UserInfoContextProvider>
+      <TabNavigator />
+    </UserInfoContextProvider>
+  ) : (
+    <AuthNavigator />
+  );
 };
 
 export default RootNavigator;
