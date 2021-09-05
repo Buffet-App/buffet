@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -14,6 +14,10 @@ import Card from "../../components/Card";
 
 import { IRestaurantObject } from "../../config/interfaces";
 import colors from "../../config/colors";
+import Firebase from "../../../config/firebase";
+import "firebase/firestore";
+
+const db = Firebase.firestore();
 
 export const restaurants: IRestaurantObject[] = [
   {
@@ -42,11 +46,53 @@ export const restaurants: IRestaurantObject[] = [
 ];
 
 const HomeScreen = ({ navigation }) => {
+  const [featuredRestaurants, setFeaturedRestaurants] = useState([]);
+  useEffect(() => {
+    (async () => {
+      console.log("READ: HomeScreen.tsx");
+      const snapshot = await db
+        .collection("restaurants")
+        .where("isFeatured", "==", true)
+        .get();
+      setFeaturedRestaurants(
+        snapshot.docs.map((doc) => {
+          console.log(doc.data());
+          return doc.data();
+        })
+      );
+    })();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.section}>
-          <Text style={styles.text__header}>Your Buffet</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Buffet");
+            }}
+          >
+            <Text style={styles.text__header}>Your Buffet</Text>
+          </TouchableOpacity>
+          <FlatList
+            nestedScrollEnabled={true}
+            horizontal={true}
+            data={featuredRestaurants}
+            renderItem={({ item }) => (
+              <Card item={item} navigation={navigation} />
+            )}
+            keyExtractor={(item) => item.name}
+          />
+        </View>
+
+        <View style={styles.section}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("MyDeals");
+            }}
+          >
+            <Text style={styles.text__header}>Your Deals</Text>
+          </TouchableOpacity>
           <FlatList
             nestedScrollEnabled={true}
             horizontal={true}
@@ -59,33 +105,13 @@ const HomeScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.text__header}>Your Deals</Text>
-          <FlatList
-            nestedScrollEnabled={true}
-            horizontal={true}
-            data={restaurants}
-            renderItem={({ item }) => (
-              <Card item={item} navigation={navigation} />
-            )}
-            keyExtractor={(item) => item.name}
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.text__header}>Your Favorites</Text>
-          <FlatList
-            nestedScrollEnabled={true}
-            horizontal={true}
-            data={restaurants}
-            renderItem={({ item }) => (
-              <Card item={item} navigation={navigation} />
-            )}
-            keyExtractor={(item) => item.name}
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.text__header}>Your Tastes</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("MyFavoritesStack");
+            }}
+          >
+            <Text style={styles.text__header}>Your Favorites</Text>
+          </TouchableOpacity>
           <FlatList
             nestedScrollEnabled={true}
             horizontal={true}

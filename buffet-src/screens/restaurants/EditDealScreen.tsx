@@ -48,10 +48,14 @@ const EditDealScreen = ({ route, navigation }) => {
             addOnDesc: isExistingDeal ? route.params.deal.addOnDesc : "",
             addOnPrice: isExistingDeal ? route.params.deal.addOnPrice : "",
             addOnImage: isExistingDeal ? route.params.deal.addOnImage : "",
+            isBuffetDeal: isExistingDeal
+              ? route.params.deal.isBuffetDeal
+              : false,
           }}
           onSubmit={async (values: IDealsObject) => {
             try {
               console.log("WRITE:  newDeals");
+
               if (isExistingDeal) {
                 await db
                   .collection("restaurants")
@@ -72,6 +76,17 @@ const EditDealScreen = ({ route, navigation }) => {
                   .add({
                     values,
                   });
+              }
+              if (values.isBuffetDeal === true) {
+                await db
+                  .collection("restaurants")
+                  .doc(userInfo.restaurantId)
+                  .set(
+                    {
+                      isFeatured: true,
+                    },
+                    { merge: true }
+                  );
               }
               navigation.goBack();
             } catch (error) {
@@ -179,6 +194,24 @@ const EditDealScreen = ({ route, navigation }) => {
                   onChangeText={formikProps.handleChange("addOnImage")}
                   value={formikProps.values.addOnImage}
                 />
+              </View>
+
+              <View>
+                <Switch
+                  trackColor={{ false: "#767577", true: "#81b0ff" }}
+                  thumbColor={
+                    formikProps.values.isBuffetDeal ? "#f5dd4b" : "#f4f3f4"
+                  }
+                  ios_backgroundColor={colors.gray}
+                  onValueChange={() => {
+                    formikProps.setFieldValue(
+                      "isBuffetDeal",
+                      !formikProps.values.isBuffetDeal
+                    );
+                  }}
+                  value={formikProps.values.isBuffetDeal}
+                />
+                <Text>Would you like to join the buffet?</Text>
               </View>
 
               <TouchableOpacity

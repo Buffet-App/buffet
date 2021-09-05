@@ -8,6 +8,8 @@ import MapScreen from "../screens/customers/MapScreen";
 import ScanScreen from "../screens/customers/ScanScreen";
 import MyRestaurantsScreen from "../screens/customers/MyRestaurantsScreen";
 import ProfileScreen from "../screens/customers/ProfileScreen";
+import MyDealsScreen from "../screens/customers/MyDealsScreen";
+import BuffetScreen from "../screens/customers/BuffetScreen";
 import SubscriptionScreen from "../screens/customers/SubscriptionScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 
@@ -27,6 +29,8 @@ export type UserStackParamList = {
   MyFavoritesStack: undefined;
   ProfileStack: undefined;
   RestaurantInfo: undefined;
+  MyDeals: undefined;
+  Buffet: undefined;
   Subscription: undefined;
   EditProfile: undefined;
 };
@@ -58,6 +62,8 @@ export const UserStack = (props) => {
       <Stack.Screen name="ProfileStack" component={ProfileScreen} />
       {/* NESTED SCREENS */}
       <Stack.Screen name="RestaurantInfo" component={RestaurantInfoScreen} />
+      <Stack.Screen name="Buffet" component={BuffetScreen} />
+      <Stack.Screen name="MyDeals" component={MyDealsScreen} />
       <Stack.Screen name="Subscription" component={SubscriptionScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>

@@ -47,4 +47,5 @@ export interface IDealsObject {
   addOnDesc?: string;
   addOnPrice?: string;
   addOnImage?: string;
+  isBuffetDeal?: boolean;
 }
