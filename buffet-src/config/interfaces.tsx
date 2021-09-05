@@ -40,11 +40,11 @@ export interface IRestaurantObject {
 export interface IDealsObject {
   itemName: string;
   itemDesc: string;
-  itemPrice: number;
+  itemPrice: string;
   itemImage: string;
   hasAddOn?: boolean;
   addOnName?: string;
   addOnDesc?: string;
-  addOnPrice?: number;
+  addOnPrice?: string;
   addOnImage?: string;
 }

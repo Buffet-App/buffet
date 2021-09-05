@@ -10,25 +10,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { HomeStack } from "./NavigationStacks";
+import { UserStack, RestaurantStack } from "./NavigationStacks";
 import {
   RestaurantInfoContextProvider,
   UserInfoContext,
 } from "../UserInfoContextProvider";
-
-// CUSTOMER SCREENS IMPORT
-import MapScreen from "../screens/customers/MapScreen";
-import ScanScreen from "../screens/customers/ScanScreen";
-import MyRestaurantsScreen from "../screens/customers/MyRestaurantsScreen";
-import ProfileScreen from "../screens/customers/ProfileScreen";
-// RESTAURANT SCREENS IMPORT
-import RestaurantHomeScreen from "../screens/restaurants/RestaurantHomeScreen";
-import AnalyticsScreen from "../screens/restaurants/AnalyticsScreen";
-import NewDealScreen from "../screens/restaurants/NewDealScreen";
-import BankScreen from "../screens/restaurants/BankScreen";
-import RestaurantProfileScreen from "../screens/restaurants/RestaurantProfileScreen";
 import RestaurantSignUpFlow from "../screens/restaurants/RestaurantSignUpFlow";
-
 import colors from "../config/colors";
 import { IUserObject } from "../config/interfaces";
 
@@ -43,7 +30,7 @@ export const TabNavigator = () => {
         <RestaurantInfoContextProvider>
           <NavigationContainer>
             <Tab.Navigator
-              initialRouteName="Home"
+              initialRouteName="RestaurantHomeStack"
               screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                   let iconName;
@@ -54,7 +41,7 @@ export const TabNavigator = () => {
                     case "Analytics":
                       iconName = focused ? "analytics" : "analytics-outline";
                       break;
-                    case "New Deal":
+                    case "Manage Deals":
                       iconName = focused ? "add" : "add-outline";
                       break;
                     case "Bank":
@@ -71,23 +58,48 @@ export const TabNavigator = () => {
                   backgroundColor: colors.white,
                   height: Platform.OS === "android" ? 65 : 90,
                 },
+                headerShown: false,
                 tabBarActiveTintColor: colors.secondary,
                 tabBarInactiveTintColor: "gray",
               })}
             >
-              <Tab.Screen name="Home" component={RestaurantHomeScreen} />
-              <Tab.Screen name="Analytics" component={AnalyticsScreen} />
               <Tab.Screen
-                name="New Deal"
-                component={NewDealScreen}
+                name="Home"
+                children={() => {
+                  return <RestaurantStack initialRoute="RestaurantHomeStack" />;
+                }}
+              />
+              <Tab.Screen
+                name="Analytics"
+                children={() => {
+                  return <RestaurantStack initialRoute="AnalyticsStack" />;
+                }}
+              />
+              <Tab.Screen
+                name="Manage Deals"
+                children={() => {
+                  return <RestaurantStack initialRoute="DealsStack" />;
+                }}
                 options={{
                   tabBarButton: (props) => {
                     return customTabBarButton(props);
                   },
                 }}
               />
-              <Tab.Screen name="Bank" component={BankScreen} />
-              <Tab.Screen name="Profile" component={RestaurantProfileScreen} />
+              <Tab.Screen
+                name="Bank"
+                children={() => {
+                  return <RestaurantStack initialRoute="BankStack" />;
+                }}
+              />
+              <Tab.Screen
+                name="Profile"
+                children={() => {
+                  return (
+                    <RestaurantStack initialRoute="RestaurantProfileStack" />
+                  );
+                }}
+              />
             </Tab.Navigator>
           </NavigationContainer>
         </RestaurantInfoContextProvider>
@@ -134,20 +146,20 @@ export const TabNavigator = () => {
           <Tab.Screen
             name="Home"
             children={() => {
-              return <HomeStack initialRoute="HomeStack" />;
+              return <UserStack initialRoute="HomeStack" />;
             }}
             options={{ unmountOnBlur: true }}
           />
           <Tab.Screen
             name="Map"
             children={() => {
-              return <HomeStack initialRoute="MapStack" />;
+              return <UserStack initialRoute="MapStack" />;
             }}
           />
           <Tab.Screen
             name="Scan"
             children={() => {
-              return <HomeStack initialRoute="ScanStack" />;
+              return <UserStack initialRoute="ScanStack" />;
             }}
             options={{
               tabBarButton: (props) => {
@@ -158,13 +170,13 @@ export const TabNavigator = () => {
           <Tab.Screen
             name="My Favorites"
             children={() => {
-              return <HomeStack initialRoute="MyFavoritesStack" />;
+              return <UserStack initialRoute="MyFavoritesStack" />;
             }}
           />
           <Tab.Screen
             name="Profile"
             children={() => {
-              return <HomeStack initialRoute="ProfileStack" />;
+              return <UserStack initialRoute="ProfileStack" />;
             }}
           />
         </Tab.Navigator>
@@ -217,7 +229,7 @@ export const TabNavigator = () => {
             top: Platform.OS === "android" ? -10 : 0,
           }}
         >
-          {userInfo.isRestaurant ? "New Deal" : "Scan"}
+          {userInfo.isRestaurant ? "Deals" : "Scan"}
         </Text>
       </View>
     );
