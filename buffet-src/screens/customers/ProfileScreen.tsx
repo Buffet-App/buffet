@@ -24,14 +24,6 @@ const handleLogOut = async () => {
   }
 };
 
-const fakeUser: IUserObject = {
-  name: "Joe Schmo",
-  email: "joeschmo@gmail.com",
-  phone: "(012)345-6789",
-  isMember: true,
-  memberSince: "August 2021",
-};
-
 const ProfileScreen = ({ navigation }) => {
   const userInfo = useContext<IUserObject>(UserInfoContext);
 
@@ -66,20 +58,18 @@ const ProfileScreen = ({ navigation }) => {
 
           <View style={styles.profileStat}>
             <Text style={styles.captionTitle}>Subscribed Since</Text>
-            <Text style={styles.captionText}>{fakeUser.memberSince}</Text>
+            <Text style={styles.captionText}>YEET</Text>
           </View>
 
           <View style={styles.profileStat}>
             <Text style={styles.captionTitle}>Subscription Status</Text>
-            <Text style={styles.captionText}>
-              {fakeUser.isMember ? "Subscribed" : "Not Subscribed"}
-            </Text>
+            <Text style={styles.captionText}>YEET</Text>
           </View>
 
           <TouchableOpacity
             style={styles.signupButton}
             onPress={() => {
-              console.log("want to edit profile");
+              navigation.navigate("EditProfile");
             }}
           >
             <Text style={styles.captionText}>Edit Profile</Text>

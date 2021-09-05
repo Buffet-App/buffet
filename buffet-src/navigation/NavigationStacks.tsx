@@ -9,6 +9,7 @@ import ScanScreen from "../screens/customers/ScanScreen";
 import MyRestaurantsScreen from "../screens/customers/MyRestaurantsScreen";
 import ProfileScreen from "../screens/customers/ProfileScreen";
 import SubscriptionScreen from "../screens/customers/SubscriptionScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
 
 // RESTAURANT SCREENS IMPORT
 import RestaurantHomeScreen from "../screens/restaurants/RestaurantHomeScreen";
@@ -26,6 +27,7 @@ export type HomeStackParamList = {
   ProfileStack: undefined;
   RestaurantInfo: undefined;
   Subscription: undefined;
+  EditProfile: undefined;
 };
 
 export const HomeStack = (props) => {
@@ -44,6 +46,7 @@ export const HomeStack = (props) => {
       {/* NESTED SCREENS */}
       <Stack.Screen name="RestaurantInfo" component={RestaurantInfoScreen} />
       <Stack.Screen name="Subscription" component={SubscriptionScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 };
