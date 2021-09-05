@@ -19,6 +19,7 @@ import AnalyticsScreen from "../screens/restaurants/AnalyticsScreen";
 import DealsScreen from "../screens/restaurants/DealsScreen";
 import BankScreen from "../screens/restaurants/BankScreen";
 import RestaurantProfileScreen from "../screens/restaurants/RestaurantProfileScreen";
+import EditRestaurantScreen from "../screens/restaurants/EditRestaurantScreen";
 import RestaurantInfoScreen from "../screens/restaurants/RestaurantInfoScreen";
 import EditDealScreen from "../screens/restaurants/EditDealScreen";
 
@@ -43,7 +44,7 @@ export type RestaurantStackParamList = {
   RestaurantProfileStack: undefined;
   RestaurantInfo: undefined;
   Subscription: undefined;
-  EditProfile: undefined;
+  EditRestaurant: undefined;
   EditDeal: undefined;
 };
 
@@ -92,7 +93,7 @@ export const RestaurantStack = (props) => {
       {/* NESTED SCREENS */}
       <Stack.Screen name="RestaurantInfo" component={RestaurantInfoScreen} />
       <Stack.Screen name="Subscription" component={SubscriptionScreen} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="EditRestaurant" component={EditRestaurantScreen} />
       <Stack.Screen name="EditDeal" component={EditDealScreen} />
     </Stack.Navigator>
   );

@@ -19,7 +19,10 @@ export default function Card(props) {
           </Text>
           <Text style={styles.restaurantDesc}>{props.item.restaurantDesc}</Text>
           <View style={styles.imageSection}>
-            <Image source={{ uri: props.item.photo }} style={styles.image} />
+            <Image
+              source={{ uri: props.item.profileImg }}
+              style={styles.image}
+            />
           </View>
         </View>
       </View>

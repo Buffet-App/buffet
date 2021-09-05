@@ -43,7 +43,7 @@ const handleLogOut = async () => {
   }
 };
 
-const RestaurantProfileScreen = () => {
+const RestaurantProfileScreen = ({ navigation }) => {
   const restaurantInfo = useContext<IRestaurantObject>(RestaurantInfoContext);
 
   return (
@@ -113,6 +113,14 @@ const RestaurantProfileScreen = () => {
           <Text>Featured: </Text>
           <Text>{fakeRestaurant.featured}</Text>
         </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("EditRestaurant");
+          }}
+        >
+          <Text>Edit Restaurant Details</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={handleLogOut}>
           <Text>Log Out</Text>

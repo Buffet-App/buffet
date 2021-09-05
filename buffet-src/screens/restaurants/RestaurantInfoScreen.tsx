@@ -13,7 +13,7 @@ const RestaurantInfoScreen = ({ route, navigation }) => {
   const restaurantInfo = route.params.restaurantInfo as IRestaurantObject;
   return (
     <SafeAreaView>
-      <Image source={{ uri: restaurantInfo.photo }} style={styles.image} />
+      <Image source={{ uri: restaurantInfo.profileImg }} style={styles.image} />
       <Text>{restaurantInfo.name}</Text>
       <Text>{restaurantInfo.address}</Text>
       <Text>{restaurantInfo.phone}</Text>

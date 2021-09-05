@@ -56,7 +56,6 @@ const HomeScreen = ({ navigation }) => {
         .get();
       setFeaturedRestaurants(
         snapshot.docs.map((doc) => {
-          console.log(doc.data());
           return doc.data();
         })
       );

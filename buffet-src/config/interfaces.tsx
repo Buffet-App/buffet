@@ -17,6 +17,7 @@ export interface IUserObject {
 }
 
 export interface IRestaurantObject {
+  profileImg?: String;
   name: string;
   address: string;
   hours?: {
