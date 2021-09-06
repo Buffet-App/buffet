@@ -9,8 +9,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Switch,
+  Button,
 } from "react-native";
 import { Formik } from "formik";
+import * as ImagePicker from "expo-image-picker";
 
 import colors from "../../config/colors";
 import { globalStyles } from "../../config/globalStyles";
@@ -25,8 +27,27 @@ import {
   IUserObject,
 } from "../../config/interfaces";
 import "firebase/firestore";
+import "firebase/storage";
 
 const db = Firebase.firestore();
+const store = Firebase.storage();
+const auth = Firebase.auth();
+
+const pickImage = async (handleChange) => {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    allowsEditing: true,
+    aspect: [4, 3],
+  });
+  if (result.cancelled === false) {
+    const response = await fetch(result.uri);
+    const blob = await response.blob();
+
+    const ref = store.ref().child(`deal-imgs/${auth.currentUser.uid}/deal.jpg`);
+    await ref.put(blob);
+    const link = await ref.getDownloadURL();
+    handleChange(link);
+  }
+};
 
 const EditDealScreen = ({ route, navigation }) => {
   const restaurantInfo = useContext<IRestaurantObject>(RestaurantInfoContext);
@@ -96,7 +117,23 @@ const EditDealScreen = ({ route, navigation }) => {
         >
           {(formikProps) => (
             <View style={styles.formContainer}>
-              <Text style={globalStyles.headerText}>Edit Profile</Text>
+              <Text style={globalStyles.headerText}>Edit Deal</Text>
+
+              <Button
+                title="Pick an Image"
+                onPress={() => {
+                  pickImage(formikProps.handleChange("itemImage"));
+                }}
+              >
+                Pick an image from camera roll
+              </Button>
+              {formikProps.values.itemImage &&
+              formikProps.values.itemImage.length > 0 ? (
+                <Image
+                  source={{ uri: formikProps.values.itemImage }}
+                  style={{ width: 200, height: 200 }}
+                />
+              ) : null}
 
               <View style={styles.inputView}>
                 <TextInput
@@ -125,16 +162,6 @@ const EditDealScreen = ({ route, navigation }) => {
                   placeholderTextColor="#003f5c"
                   onChangeText={formikProps.handleChange("itemPrice")}
                   value={formikProps.values.itemPrice}
-                />
-              </View>
-
-              <View style={styles.inputView}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Item Image"
-                  placeholderTextColor="#003f5c"
-                  onChangeText={formikProps.handleChange("itemImage")}
-                  value={formikProps.values.itemImage}
                 />
               </View>
 

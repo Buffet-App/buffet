@@ -1,33 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
+import { IDealsObject } from "../config/interfaces";
+import Firebase from "../../config/firebase";
+import "firebase/firestore";
+
+const db = Firebase.firestore();
 
 export default function Card(props) {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        props.navigation.navigate("RestaurantInfo", {
-          restaurantInfo: props.item,
-        });
-      }}
-    >
-      <View style={styles.card}>
-        <View style={styles.cardContent}>
-          <Text style={styles.restaurantName}>
-            {props.item.name.toUpperCase()}
-          </Text>
-          <Text style={styles.restaurantDesc}>{props.item.restaurantDesc}</Text>
-          <View style={styles.imageSection}>
-            <Image
-              source={{ uri: props.item.profileImg }}
-              style={styles.image}
-            />
+  const [restaurantDeals, setRestaurantDeals] = useState<IDealsObject[]>([]);
+  const [buffetDeal, setBuffetDeal] = useState<IDealsObject>(undefined);
+  useEffect(() => {
+    (async () => {
+      console.log("READ: Card.tsx");
+      const snapshot = await db
+        .collection("restaurants")
+        .doc(props.item.restaurantId)
+        .collection("deals")
+        .get();
+      const deals = snapshot.docs.map((doc) => {
+        return doc.data().values;
+      });
+      setBuffetDeal(deals.find((deal) => deal.isBuffetDeal === true));
+      setRestaurantDeals(deals);
+    })();
+  }, []);
+
+  if (buffetDeal !== undefined) {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("RestaurantInfo", {
+            restaurantInfo: props.item,
+            restaurantDeals: restaurantDeals,
+          });
+        }}
+      >
+        <View style={styles.card}>
+          <View style={styles.cardContent}>
+            <Text style={styles.restaurantName}>
+              {props.item.name.toUpperCase()}
+            </Text>
+            <Text style={styles.restaurantDesc}>{buffetDeal.itemName}</Text>
+            <View style={styles.imageSection}>
+              <Image
+                source={{ uri: buffetDeal.itemImage }}
+                style={styles.image}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  } else {
+    return <View />;
+  }
 }
 
 const styles = StyleSheet.create({

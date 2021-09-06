@@ -41,6 +41,9 @@ export default function RestaurantSignUpFlow() {
               city: values.city,
               zipcode: values.zipcode,
             });
+            await db.collection("restaurants").doc(docRef.id).update({
+              restaurantId: docRef.id,
+            });
             console.log("write:  RestaurantSignupFlow");
             await db.collection("users").doc(auth.currentUser.uid).set(
               {

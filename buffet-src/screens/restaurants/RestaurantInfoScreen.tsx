@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  View,
   TouchableOpacity,
 } from "react-native";
 import { IRestaurantObject } from "../../config/interfaces";
@@ -18,6 +19,11 @@ const RestaurantInfoScreen = ({ route, navigation }) => {
       <Text>{restaurantInfo.address}</Text>
       <Text>{restaurantInfo.phone}</Text>
       <Text>{restaurantInfo.restaurantDesc}</Text>
+      <View>
+        {route.params.restaurantDeals.map((deal) => {
+          return <Text>{deal.itemName}</Text>;
+        })}
+      </View>
       <TouchableOpacity
         style={globalStyles.loginButton}
         onPress={() => {

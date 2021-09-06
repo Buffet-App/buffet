@@ -42,17 +42,15 @@ const pickImage = async (handleChange) => {
     const ref = store
       .ref()
       .child(`profile-imgs/${auth.currentUser.uid}/profile.jpg`);
+    await ref.put(blob);
     const link = await ref.getDownloadURL();
     handleChange(link);
-    return ref.put(blob);
   }
 };
 
 function EditRestaurantScreen({ navigation }) {
   const userInfo = useContext<IUserObject>(UserInfoContext);
   const restaurantInfo = useContext<IRestaurantObject>(RestaurantInfoContext);
-
-  console.log(userInfo);
 
   return (
     <SafeAreaView style={styles.container}>

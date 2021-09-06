@@ -54,11 +54,10 @@ const HomeScreen = ({ navigation }) => {
         .collection("restaurants")
         .where("isFeatured", "==", true)
         .get();
-      setFeaturedRestaurants(
-        snapshot.docs.map((doc) => {
-          return doc.data();
-        })
-      );
+      const buffetRestaurants = snapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      setFeaturedRestaurants(buffetRestaurants);
     })();
   }, []);
 
